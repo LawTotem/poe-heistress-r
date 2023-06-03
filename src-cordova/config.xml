@@ -9,6 +9,7 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-navigation href="about:*" />
+    <preference name="Scheme" value="http" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <platform name="android">
         <icon density="ldpi" src="res/android/ldpi.png" />

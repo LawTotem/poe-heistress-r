@@ -27,22 +27,29 @@ export default defineComponent({
     props : {
         currentRun : RunStatus
     },
+    data() {
+        return {
+            undo_button : false
+        }
+    },
     methods: {
         toggleBlueprint() {
             this.$emit('trackerEvent', 'toggle_blueprint')
-            console.log('Toggle Blueprint')
         },
         toggleJob(job : string) {
             this.$emit('trackerEvent', 'toggle_job', job)
-            console.log('Toggle Job' + job)
         },
         toggleRogue(rogue : string) {
             this.$emit('trackerEvent', 'toggle_rogue', rogue)
-            console.log('Toggle Rogue' + rogue)
         },
         addReward(reward : string) {
-            this.$emit('trackerEvent', 'add_reward', reward)
-            console.log('Add Reward' + reward)
+            if (this.undo_button) {
+                this.$emit('trackerEvent', 'remove_reward', reward)
+                this.undo_button = false
+            } else { 
+                this.$emit('trackerEvent', 'add_reward', reward)
+            }
+
         },
         removeReward(reward : string) {
             this.$emit('trackerEvent', 'remove_reward', reward)
@@ -65,6 +72,9 @@ export default defineComponent({
         },
         triggerCurioCapture() {
             this.$emit('trackerEvent', 'capture_curio')
+        },
+        undoButton() {
+            this.undo_button = true
         }
     }
 })
@@ -105,6 +115,10 @@ export default defineComponent({
         <div class="flex-span">
             <div class="job-span" v-for="job in currentRun.jobs.jobMap()" :key="job[0]">
                 <img @click="toggleJob(job[0])" :style="{'filter': job[1] ? 'grayscale(0%)' : 'grayscale(100%)', 'opacity': currentRun.could_job.jobMap().get(job[0]) ? '1.0' : '0.3'}" :src="'heist_icons/' + getJobIcon(job[0])"/>
+            </div>
+            <div class="job-span"></div>
+            <div class="job-span">
+                <img @click="undoButton()" src="heist_icons/undo.png"/>
             </div>
         </div>
         <div id="rewards" class="reward-span">
@@ -174,7 +188,7 @@ export default defineComponent({
 }
 .reward-span {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
 }
 .reward-button {
     display: inline-grid;
