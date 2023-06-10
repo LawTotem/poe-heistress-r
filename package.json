@@ -1,6 +1,6 @@
 {
   "name": "poe-heistress-r",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Remote control for the PoE Heistress tool",
   "productName": "PoE Heistress Remote",
   "author": "LawTotem <lawtotem8511@gmail.com>",
