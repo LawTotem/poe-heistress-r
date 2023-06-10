@@ -6784,6 +6784,7 @@ __metadata:
     vue-i18n: ^9.2.2
     vue-router: ^4.0.0
     webpack: ^5.82.1
+    ws: ^8.13.0
     zeromq: ^6.0.0-beta.16
   languageName: unknown
   linkType: soft
@@ -8965,7 +8966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.4.2":
+"ws@npm:^8.13.0, ws@npm:^8.4.2":
   version: 8.13.0
   resolution: "ws@npm:8.13.0"
   peerDependencies:

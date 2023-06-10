@@ -37,8 +37,6 @@ export default defineComponent({
             handler(new_data) {
                 this.grabbing = true
                 this.$emit('pricerEvent', '_new_grab')
-                console.log(new_data)
-                console.log('new data')
                 if (this.img_img == null) {
                     return
                 }

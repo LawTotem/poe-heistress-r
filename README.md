@@ -5,9 +5,15 @@
 Remote control for the PoE Heistress tool.
 This app is being developed to allow a phone to remote control the PoE Heistress tool.
 
-*Security: I haven't been able to configure https support so all the communication is un-encrypted to/from the remote*
+*Security: https is supported via self signed - individual certificate. This is paper thin security and notably vulnerable to MitM attack but better than nothing. Probably limit to trusted internal networks.*
 
 # Connect to the main instance
+To find a steam decks IP address in desktop mode.
+1. Click on the wifi connection icon in the tray on the bottom left. 
+2. Epand the network you are connected to
+3. Select the Details tap
+4. Note the IPv4 address, probably `192.168.1.xxx`
+
 Enter the IP address in the box to the right of the contract at the top of the screen.
 After the IP has been entered, click the contract and the instance will attempt to connect.
 To re-enter the IP click the contract icon again and the input box will re-appear, re-enter the IP and click the contract icon to connect again.

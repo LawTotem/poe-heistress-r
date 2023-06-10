@@ -40,25 +40,22 @@ export default defineComponent({
         toggleIP() {
             if (this.input_ip) {
                 this.input_ip = false
-                this.command_sock = new WebSocket('ws://' + this.ip_addrs +':10635')
-                this.update_sock = new WebSocket('ws://' + this.ip_addrs + ':10636')
-                this.image_sock = new WebSocket('ws://' + this.ip_addrs + ':10637')
-                this.price_sock = new WebSocket('ws://' + this.ip_addrs + ':10638')
+                this.command_sock = new WebSocket('wss://' + this.ip_addrs +':10635')
+                this.update_sock = new WebSocket('wss://' + this.ip_addrs + ':10636')
+                this.image_sock = new WebSocket('wss://' + this.ip_addrs + ':10637')
+                this.price_sock = new WebSocket('wss://' + this.ip_addrs + ':10638')
                 this.update_sock.addEventListener('message', (message) => {
-                    const data = JSON.parse(message.data)
+                    const data = JSON.parse(message.data.toString())
                     this.currentRun.dejson(data)
                 })
                 this.image_sock.addEventListener('message', (message) => {
                     const data = message.data as string
-                    console.log(data)
                     const adata = data.split(',').map(Number)
-                    console.log(adata)
                     const cdata = new Uint8ClampedArray(adata)
-                    console.log(cdata)
                     this.image_data = cdata
                 })
                 this.price_sock.addEventListener('message', (message) => {
-                    const data = JSON.parse(message.data)
+                    const data = JSON.parse(message.data.toString())
                     const pinfo = new PriceInfo().dejson(data)
                     this.prices = pinfo.prices
                 })
@@ -67,7 +64,6 @@ export default defineComponent({
             }
         },
         trackerCatcher(arg1 : string, arg2 : string) {
-            console.log('Event1' + arg1 + ' ' + arg2)
             if (arg1 == '_new_grab') {
                 this.new_grab = true
             }
@@ -86,7 +82,6 @@ export default defineComponent({
             if (arg1 == 'toggle_rogue' && this.command_sock != null) {
                 const request = new HeistressRequest('toggle_rogue', arg2)
                 this.command_sock.send(JSON.stringify(request.rejson()))
-                console.log(this.command_sock)
             }
             if (arg1 == 'add_reward' && this.command_sock != null) {
                 const request = new HeistressRequest('add_reward', arg2)
